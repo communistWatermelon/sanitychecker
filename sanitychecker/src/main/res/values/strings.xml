@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SanityChecker</string>
+    <string name="title_activity_main">JSONDisplay</string>
 </resources>
