@@ -35,10 +35,10 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
 
     // Coroutines
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.19.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.19.3"
 
     // UI
-    api 'com.github.jacobminer:CodeView-android:c-comments-json-SNAPSHOT'
+    implementation 'com.github.jacobminer:CodeView-android:c-comments-json-SNAPSHOT'
 
     // Networking
     implementation"com.squareup.retrofit2:retrofit:2.3.0"
