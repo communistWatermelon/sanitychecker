@@ -7,7 +7,11 @@ import retrofit2.Call
  * serversanity
  * Created by jake on 2017-11-15, 2:30 PM
  */
-data class ApiResult(var url: String, var success: Boolean, var json: JSONObject)
+data class ApiResult(var url: String, var success: Boolean, var json: JSONObject) {
+    fun cleanOutput(): String {
+        return " ========= $url =========\n ${json.toString(1)}\n"
+    }
+}
 
 object SanityChecker {
     suspend fun runTests(vararg calls: APICall<*>): List<ApiResult> {

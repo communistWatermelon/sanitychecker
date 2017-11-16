@@ -20,15 +20,11 @@ abstract class APICall<T>(val call: Call<T>, val type: Type) {
     abstract suspend fun test(): DataResult
 }
 
-class RetroFitApi<T>(private val api: Call<T>, type: Type): APICall<T>(api, type) {
-    private val tag = RetroFitApi::class.java.simpleName
-
+class RetroFitApi<T>(private val api: Call<T>, type: Type) : APICall<T>(api, type) {
     private var moshi = Moshi.Builder().build()
     private val jsonAdapter = moshi.adapter<T>(type)
 
     override suspend fun test(): DataResult {
-        Log.d(tag, "Running test on api ${ api.request().url() }")
-
         return try {
             val result = api.awaitResponse()
             val successful = wasSuccessful(result)
@@ -49,7 +45,7 @@ class RetroFitApi<T>(private val api: Call<T>, type: Type): APICall<T>(api, type
         }
     }
 
-    private fun <T>wasSuccessful(response: Response<T>?): Boolean {
+    private fun <T> wasSuccessful(response: Response<T>?): Boolean {
         response?.body() ?: return false
         if (!response.isSuccessful) return false
         if (response.errorBody() != null) return false
