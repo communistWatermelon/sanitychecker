@@ -23,4 +23,4 @@ object SanityChecker {
     }
 }
 
-infix fun <T> Call<T>.pair(type: Class<T>) = RetroFitApi(this, type)
+infix fun <T> Call<T>.bindTo(type: Class<T>) = RetroFitApi(this, type)
