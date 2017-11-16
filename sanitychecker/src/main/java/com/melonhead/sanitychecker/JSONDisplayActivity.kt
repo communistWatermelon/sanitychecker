@@ -30,6 +30,8 @@ abstract class JSONDisplayActivity : AppCompatActivity() {
         }
     }
 
-    abstract fun runTests()
+    abstract suspend fun runTests()
+
+    abstract fun getTests(): List<APICall<*>>
 
 }

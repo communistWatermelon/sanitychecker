@@ -11,7 +11,11 @@ data class ApiResult(var url: String, var success: Boolean, var json: JSONObject
 
 object SanityChecker {
     suspend fun runTests(vararg calls: APICall<*>): List<ApiResult> {
-        return calls.map { Server(it).test() }
+        return runTests(listOf(*calls))
+    }
+
+    suspend fun runTests(callList: List<APICall<*>>): List<ApiResult> {
+        return callList.map { Server(it).test() }
     }
 }
 
