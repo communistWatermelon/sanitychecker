@@ -3,6 +3,8 @@ package com.melonhead.sanitychecker
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import io.github.kbiakov.codeview.CodeView
 import io.github.kbiakov.codeview.adapters.Format
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.classifier.CodeProcessor
@@ -17,6 +19,18 @@ abstract class JSONDisplayActivity : AppCompatActivity() {
 
     protected val successSelected: Boolean
         get() = tabs.selectedTabPosition == 0
+
+    protected val codeView: CodeView
+        get() = code_view
+
+    protected val contentView: View
+        get() = content_view
+
+    protected val tabLayout: TabLayout
+        get() = tabs
+
+    protected val view: View
+        get() = view
 
     override fun onCreate(savedInstanceState: Bundle?) {
         CodeProcessor.init(this)
