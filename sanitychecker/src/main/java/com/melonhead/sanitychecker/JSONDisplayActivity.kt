@@ -56,7 +56,7 @@ abstract class JSONDisplayActivity : AppCompatActivity() {
         val successes = withTests.filter { it.success }
         val failures = withTests.filter { !it.success }
         val listToUse = if (successSelected) successes else failures
-        code_view.setCode(listToUse.joinToString { "${it.cleanOutput()}\n" })
+        code_view.setCode(listToUse.joinToString { "${it.cleanOutput()}\n" }, "json")
         Snackbar.make(content_view, "Succeeded: ${successes.size}, Failures: ${failures.size}", Snackbar.LENGTH_LONG).show()
     }
 

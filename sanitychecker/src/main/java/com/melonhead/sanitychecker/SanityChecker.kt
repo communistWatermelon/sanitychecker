@@ -9,7 +9,7 @@ import retrofit2.Call
  */
 data class ApiResult(var url: String, var success: Boolean, var json: JSONObject) {
     fun cleanOutput(): String {
-        return " ========= $url =========\n ${json.toString(1)}\n"
+        return "// ========= $url =========\n ${json.toString(1)}\n"
     }
 }
 
