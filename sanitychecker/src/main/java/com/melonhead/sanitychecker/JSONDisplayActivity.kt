@@ -1,6 +1,7 @@
 package com.melonhead.sanitychecker
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import io.github.kbiakov.codeview.adapters.Format
 import io.github.kbiakov.codeview.adapters.Options
@@ -12,6 +13,11 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
 abstract class JSONDisplayActivity : AppCompatActivity() {
+    protected var currentTests: List<ApiResult>? = null
+
+    protected val successSelected: Boolean
+        get() = tabs.selectedTabPosition == 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         CodeProcessor.init(this)
         super.onCreate(savedInstanceState)
@@ -19,19 +25,38 @@ abstract class JSONDisplayActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         code_view.setOptions(Options.Default.get(this)
-                .withFormat(Format.ExtraCompact)
-                .withTheme(ColorTheme.MONOKAI)
+            .withFormat(Format.ExtraCompact)
+            .withTheme(ColorTheme.MONOKAI)
         )
 
         fab.setOnClickListener { _ ->
             async(UI) {
-                runTests()
+                val tests = runTests()
+                currentTests = tests
+                updateUI(tests)
             }
         }
+
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val tests = currentTests ?: return
+                updateUI(tests)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        })
     }
 
-    abstract suspend fun runTests()
+    private suspend fun runTests(): List<ApiResult> {
+        return SanityChecker.runTests(getTests())
+    }
 
     abstract fun getTests(): List<APICall<*>>
 
+    abstract fun updateUI(runTests: List<ApiResult>)
 }
